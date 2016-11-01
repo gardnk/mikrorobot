@@ -18,7 +18,24 @@ def exploration_cb(OccupancyGrid):
     # get the current position and pose
     current_map = OccupancyGrid.data
     current_pos = listener.lookupTransform('base_link', 'map', rospy.Time(0))
+    all_unexplored = np.where(current_map == -1)
+    rows = all_unexplored[0]
+    cols = all_unexplored[1]
+    shortest_dist = 1000000
+    nearest_point = [0,0]
+
+    for i in range(0, rows.size):
+        # find the shortes euclidean distance
+        print rows[i], cols[i]
+        x = abs(current_pos.x - rows[i])
+        y = abs(current_pos.y - cols[i])
+        dist = np.sqrt(x**2 + y**2)
+        if dist < shortest_dist:
+            shortest_dist = dist
+            nearest_point = [rows[i], cols[i]]
+
     print current_pos
+    print nearest_point
 
     goal = MoveBaseGoal()
     goal.header.stamp = rospy.Time.now()
