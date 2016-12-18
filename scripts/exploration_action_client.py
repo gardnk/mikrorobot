@@ -39,8 +39,8 @@ def exploration_cb(OccupancyGrid):
 
     goal = MoveBaseGoal()
     goal.header.stamp = rospy.Time.now()
-    goal.pose.position.x = 0.0
-    goal.pose.position.y = 0.0
+    goal.pose.position.x = nearest_point[0]
+    goal.pose.position.y = nearest_point[1]
     goal.pose.position.z = 0.0
     goal.pose.orientation.x = 0.0
     goal.pose.orientation.y = 0.0
